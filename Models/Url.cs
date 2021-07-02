@@ -12,7 +12,15 @@ namespace UrlShortener_UklonTest.Models
         public int ClickCount { get; set; }
         public List<DateTime> ClickDate; 
 
-        public Url (string Full, string Shrt)
+        public Url (string Full)
+        {
+            ClickDate = new List<DateTime> { };
+            FullUrl = Full;
+            ShortUrl = ShortUrlGenerator.GetShortUrl();
+            ClickCount = 1;
+            ClickDate.Add(DateTime.Now);
+        }
+        public Url(string Full, string Shrt)
         {
             ClickDate = new List<DateTime> { };
             FullUrl = Full;

@@ -15,9 +15,9 @@ namespace UrlShortener_UklonTest.Controllers
     {
         private static List<Url> Urls = new List<Url>
         {
-            new Url("https://en.wikipedia.org/wiki/Worms,_Germany","shorturl"),
-            new Url("https://en.wikipedia.org/wiki/Battle_of_G%C3%B6llheim","shorturl"),
-            new Url("https://en.wikipedia.org/wiki/Jacob_Zuma","shorturl")
+            new Url("https://en.wikipedia.org/wiki/Worms,_Germany", ShortUrlGenerator.GetShortUrl()),
+            new Url("https://en.wikipedia.org/wiki/Battle_of_G%C3%B6llheim", ShortUrlGenerator.GetShortUrl()),
+            new Url("https://en.wikipedia.org/wiki/Jacob_Zuma", ShortUrlGenerator.GetShortUrl())
         };
 
         [HttpGet]
@@ -68,7 +68,12 @@ namespace UrlShortener_UklonTest.Controllers
             }
             else
             {
-                Urls.Add(new Url(url, "shortURl"));
+                string NewShortUrl = "";
+                do
+                {
+                    NewShortUrl = ShortUrlGenerator.GetShortUrl();
+                } while (Urls.Any(item => item.ShortUrl == NewShortUrl));
+                Urls.Add(new Url(url, NewShortUrl));
                 return this.Ok();
             }
         }
